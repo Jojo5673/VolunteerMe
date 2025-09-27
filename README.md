@@ -1,5 +1,5 @@
 # VolunteerMe
-Web platform that connects volunteers with organizations, communities and individuals who need help. The platform makes it easy for people to discover opportunities near them that match their skills and interests, sign up instantly, and track their impact
+Web platform that connects volunteers with organizations, communities and individuals who need help. The platform makes it easy for people to discover opportunities near them that match their skills and interests, sign up instantly, and track their impact.
 
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
