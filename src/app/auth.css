@@ -93,3 +93,20 @@ body {
 .signup-footer a:hover {
   text-decoration: underline;
 }
+
+.signup-form select {
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  background-color: white;
+  color: var(--accent);
+  appearance: none; 
+}
+
+.signup-form select:focus {
+  border-color: var(--greenish);
+  outline: none;
+}
