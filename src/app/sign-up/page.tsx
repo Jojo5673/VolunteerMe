@@ -3,7 +3,7 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config";
-import "./page.css";
+import "@/app/auth.css";
 
 interface FormData {
 	name: string;
@@ -32,6 +32,7 @@ export default function SignupPage() {
 		try {
 			const res = await CreateUserWithEmailAndPassword(formData.email, formData.password);
 			console.log(res);
+      sessionStorage.setItem('user', 'true')
 			setFormData({
 				name: "",
 				email: "",
@@ -64,7 +65,7 @@ export default function SignupPage() {
 				</form>
 
 				<p className="signup-footer">
-					Already have an account? <a href="/login">Log in</a>
+					Already have an account? <a href="/sign-in">Log in</a>
 				</p>
 			</div>
 		</div>
