@@ -4,6 +4,7 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config";
 import "@/app/auth.css";
+import { useRouter } from "next/navigation";
 
 interface FormData {
 	name: string;
@@ -12,6 +13,7 @@ interface FormData {
 }
 
 export default function SignupPage() {
+  const router = useRouter();
 	const [formData, setFormData] = useState<FormData>({
 		name: "",
 		email: "",
@@ -27,7 +29,6 @@ export default function SignupPage() {
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		alert(`Welcome, ${formData.name}!`);
 
 		try {
 			const res = await CreateUserWithEmailAndPassword(formData.email, formData.password);
@@ -38,6 +39,7 @@ export default function SignupPage() {
 				email: "",
 				password: "",
 			});
+      router.push("/");
 		} catch (e) {
       console.log(e)
     }
