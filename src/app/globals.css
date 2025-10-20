@@ -1,14 +1,5 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import '../styles/variables.css';
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 html,
 body {
@@ -35,8 +26,223 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* Ruwan Global Styles and Design System Variables below (from template)*/
+
+/**
+ * Global Styles and Design System Variables
+ * This file defines the core design tokens for the LinkedIn-inspired application
+ * Includes color schemes, shadows, border radius, and transitions
+ */
+
+/* ============================================
+   CSS VARIABLES - LIGHT MODE (DEFAULT)
+   ============================================ */
+:root {
+  /* Primary colors - Text and background */
+  --color-background: #f4f1de;  /* Main page background - warm off-white */
+  --color-foreground: #3d405b;  /* Main text color - dark blue-gray */
+  --color-card: #f7f5e6;              /* Card background - slightly lighter than page background */
+  --color-card-foreground: #3d405b;   /* Text on cards */
+  --color-primary: #3d405b;           /* Primary brand color - darker shade */
+  --color-primary-foreground: #f4f1de;/* Text on primary colored elements */
+  --color-secondary: #4a4d6b;         /* Secondary brand color */
+  --color-muted: #e8e4ce;             /* Muted backgrounds for subtle elements */
+  --color-muted-foreground: #5a5d7a;  /* Muted text for secondary information */
+  /* Accent and highlight colors from the specified palette */
+  --color-accent: #f2cc8f;            /* Warm gold accent - F2CC8F */
+  --color-accent-foreground: #3d405b; /* Text on accent colored elements */
+  --color-sage: #81b29a;              /* Sage green accent - 81B29A */
+  --color-coral: #e07a5f;             /* Coral accent - E07A5F */
+  
+  /* UI element colors */
+  --color-border: #6b6e8a;            /* Border color for cards and dividers */
+  --color-input: #5a5d7a;             /* Input field borders */
+  
+  /* Shadows - Subtle depth for cards and elevated elements */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);   /* Small shadow for subtle elevation */
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);    /* Medium shadow for cards */
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);  /* Large shadow for modals/dropdowns */
+  
+  /* Border radius - Consistent rounding across components */
+  --radius-sm: 0.25rem;   /* Small radius - 4px */
+  --radius-md: 0.375rem;  /* Medium radius - 6px */
+  --radius-lg: 0.5rem;    /* Large radius - 8px */
+  --radius-full: 9999px;  /* Full circle/pill shape */
+  
+  /* Transitions - Smooth animations for interactive elements */
+  --transition-fast: 150ms ease-in-out;    /* Quick transitions for hover states */
+  --transition-normal: 300ms ease-in-out;  /* Standard transitions for larger changes */
+}
+
+/* ============================================
+   CSS VARIABLES - DARK MODE
+   Inverts primary colors and adjusts accents
+   ============================================ */
+.dark {
+  /* Dark mode color overrides - Primary colors are inverted */
+  --color-background: #2f3142;            /* Dark background */
+  --color-foreground: #f4f1de;            /* Light text (inverted) */
+  --color-card: #3d405b;                  /* Darker cards */
+  --color-card-foreground: #f4f1de;       /* Light text on cards */
+  --color-primary: #f4f1de;               /* Light primary color (inverted) */
+  --color-primary-foreground: #3d405b;    /* Dark text on primary */
+  --color-secondary: #4a4d6b;             /* Adjusted secondary */
+  --color-muted: #4a4d6b;                 /* Darker muted backgrounds */
+  --color-muted-foreground: #c9c5b8;      /* Lighter muted text */
+  --color-accent: #e8be7a;                /* Adjusted warm gold */
+  --color-accent-foreground: #2f3142;     /* Dark text on accent */
+  --color-sage: #6fa088;                  /* Adjusted sage green */
+  --color-coral: #d16a52;                 /* Adjusted coral */
+  --color-border: #5a5d7a;                /* Lighter borders for visibility */
+  --color-input: #4a4d6b;                 /* Dark input backgrounds */
+}
+
+/* ============================================
+   GLOBAL RESETS AND BASE STYLES
+   ============================================ */
+   
+/* Reset all elements to have consistent box model */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  line-height: 1.5;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+   
+/* Container - Centers content with max width and padding */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Card - Reusable card component with shadow and rounded corners */
+.card {
+  background-color: var(--color-card);
+  color: var(--color-card-foreground);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* ============================================
+   BUTTON STYLES
+   Base button with variants for different use cases
+   ============================================ */
+   
+/* Base button - Shared styles for all button variants */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Primary button - Solid background with primary color */
+.button-primary {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  padding: 0.5rem 1rem;
+}
+
+.button-primary:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+/* Ghost button - Transparent with muted text, subtle hover effect */
+.button-ghost {
+  background-color: transparent;
+  color: var(--color-muted-foreground);
+  padding: 0.5rem 1rem;
+}
+
+.button-ghost:hover:not(:disabled) {
+  background-color: rgba(242, 204, 143, 0.1);
+  color: var(--color-accent);
+}
+
+/* Outline button - Transparent with accent colored border */
+.button-outline {
+  background-color: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  padding: 0.5rem 1rem;
+}
+
+.button-outline:hover:not(:disabled) {
+  background-color: rgba(242, 204, 143, 0.1);
+}
+
+/* Icon button - Square button for icon-only actions */
+.button-icon {
+  padding: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* Small button - Compact size variant */
+.button-sm {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  height: 2rem;
+}
+
+/* ============================================
+   AVATAR STYLES
+   Circular avatar with initials or image
+   ============================================ */
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  background-color: var(--color-muted);
+}
+
+/* ============================================
+   INPUT STYLES
+   Standard text input with focus state
+   ============================================ */
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  border: 1px solid var(--color-input);
+  border-radius: var(--radius-full);
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.input:focus {
+  border-color: var(--color-accent);
+}
+
+.input::placeholder {
+  color: var(--color-muted-foreground);
 }

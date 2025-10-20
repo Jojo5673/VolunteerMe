@@ -1,0 +1,23 @@
+:root {
+  --light: #f4f1de;
+  --accent: #e07a5f;
+  --dark: #3d405b;
+  --greenish: #81b29a;
+  --gold: #f2cc8f;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--dark);
+    --foreground: var(--light);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --foreground: var(--dark);
+    --background: var(--light);
+  }
+}
+

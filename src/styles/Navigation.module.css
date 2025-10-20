@@ -1,0 +1,101 @@
+/**
+ * Navigation Component Styles
+ * Top navigation bar with logo, nav items, and theme toggle
+ * Similar to LinkedIn's main navigation structure
+ */
+
+/* Main nav container - Sticky header with border */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--color-card);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Container - Centers navigation content with max width */
+.navContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Content wrapper - Flexbox layout for logo, nav items, and theme toggle */
+.navContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 3.5rem;
+}
+
+/* Left section - Logo area */
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Logo - LinkedIn-style "in" logo with accent background */
+.logo {
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--color-accent);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: var(--color-accent-foreground);
+  font-size: 1rem;
+}
+
+/* Center section - Main navigation items */
+.centerSection {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Navigation item - Vertical layout with icon and label */
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
+  height: 3.5rem;
+  padding: 0 1rem;
+  background-color: transparent;
+  color: var(--color-muted-foreground);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border-bottom: 2px solid transparent;
+}
+
+/* Hover state - Subtle background highlight */
+.navItem:hover {
+  background-color: rgba(242, 204, 143, 0.1);
+}
+
+/* Active state - Highlighted text with accent border */
+.navItem.active {
+  color: var(--color-foreground);
+  border-bottom-color: var(--color-accent);
+}
+
+/* Icon sizing for lucide-react icons */
+.navIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Label text - Small text below each icon */
+.navLabel {
+  font-size: 0.75rem;
+}
+
+/* Right section - Theme toggle button */
+.rightSection {
+  display: flex;
+  align-items: center;
+}
