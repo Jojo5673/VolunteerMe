@@ -1,5 +1,3 @@
-
-
 /**
  * Index Page
  * Main application page with LinkedIn-style layout
