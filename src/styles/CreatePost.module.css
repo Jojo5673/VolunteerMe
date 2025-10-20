@@ -1,0 +1,103 @@
+/**
+ * CreatePost Component Styles
+ * Card for creating new posts with input area and post type buttons
+ * Similar to LinkedIn's "Start a post" feature
+ */
+
+/* Card wrapper - Padded container */
+.card {
+  padding: 1rem;
+}
+
+/* Input area - Horizontal layout with avatar and input */
+.inputArea {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Avatar - User profile circle with initials */
+.avatar {
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--color-accent);
+  color: var(--color-accent-foreground);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+/* Fake input - Button styled to look like text input (would open modal) */
+.fakeInput {
+  flex: 1;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-input);
+  border-radius: var(--radius-full);
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+/* Hover state - Light mode subtle background */
+.fakeInput:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode hover - Lighter background for visibility */
+.dark .fakeInput:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Placeholder text - Muted "Start a post" text */
+.placeholder {
+  color: var(--color-muted-foreground);
+}
+
+/* Post type buttons container - Evenly spaced buttons */
+.postTypeButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* Post type button - Icon + text button for Photo, Event, Article */
+.postTypeButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background-color var(--transition-fast);
+}
+
+/* Photo button - Sage green color variant */
+.postTypeButton.photo {
+  color: var(--color-sage);
+}
+
+/* Event button - Coral color variant */
+.postTypeButton.event {
+  color: var(--color-coral);
+}
+
+/* Article button - Accent gold color variant */
+.postTypeButton.article {
+  color: var(--color-accent);
+}
+
+/* Hover state - Accent background on all buttons */
+.postTypeButton:hover {
+  background-color: rgba(242, 204, 143, 0.1);
+}
+
+/* Icon sizing for lucide-react icons */
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}

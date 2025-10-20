@@ -2,7 +2,7 @@
 
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "@/app/firebase/config";
+import { auth } from "@/lib/firebaseConfig";
 import "@/app/auth.css";
 import { useRouter } from "next/navigation";
 
@@ -27,10 +27,12 @@ export default function SignupPage() {
 		setFormData((prev) => ({ ...prev, [id]: value }));
 	};
 
+	//form handler
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		try {
+			//attempt to sign in
 			const res = await CreateUserWithEmailAndPassword(formData.email, formData.password);
 			console.log(res);
       sessionStorage.setItem('user', 'true')
@@ -45,6 +47,7 @@ export default function SignupPage() {
     }
 	};
 
+	//actual form
 	return (
 		<div className="signup-container">
 			<div className="signup-card">

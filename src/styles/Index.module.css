@@ -1,0 +1,61 @@
+/**
+ * Index Page Styles
+ * Main application layout with three-column grid
+ * Responsive: stacks on mobile, three columns on desktop
+ */
+
+/* Page wrapper - Full height with background color */
+.page {
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+/* Main content - Centers layout with max width */
+.mainContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+/* Grid - 12-column layout system for flexible layouts */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+}
+
+/* Left sidebar - Full width on mobile (ProfileSidebar) */
+.leftSidebar {
+  grid-column: span 12;
+}
+
+/* Main feed - Full width on mobile (MainFeed) */
+.mainFeed {
+  grid-column: span 12;
+}
+
+/* Right sidebar - Full width on mobile (RecommendationsSidebar) */
+.rightSidebar {
+  grid-column: span 12;
+}
+
+/* ============================================
+   RESPONSIVE LAYOUT - LARGE SCREENS (1024px+)
+   Three-column layout: 3 columns left, 6 center, 3 right
+   ============================================ */
+@media (min-width: 1024px) {
+  /* Left sidebar - 3 columns (25% width) */
+  .leftSidebar {
+    grid-column: span 3;
+  }
+
+  /* Main feed - 6 columns (50% width) */
+  .mainFeed {
+    grid-column: span 6;
+  }
+
+  /* Right sidebar - 3 columns (25% width) */
+  .rightSidebar {
+    grid-column: span 3;
+  }
+}

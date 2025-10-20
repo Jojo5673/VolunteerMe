@@ -2,7 +2,7 @@
 
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "@/app/firebase/config";
+import { auth } from "@/lib/firebaseConfig";
 import { useRouter } from 'next/navigation';
 import "@/app/auth.css";
 
@@ -24,6 +24,7 @@ export default function SignInPage() {
         setFormData((prev) => ({ ...prev, [id]: value }));
     };
 
+    //form handler
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -41,6 +42,7 @@ export default function SignInPage() {
     }
     };
 
+    //actual form
     return (
         <div className="signup-container">
             <div className="signup-card">

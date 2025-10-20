@@ -1,0 +1,155 @@
+/**
+ * FeedPost Component Styles
+ * Individual post card in the main feed
+ * Shows author info, post content, engagement stats, and action buttons
+ */
+
+/* Card wrapper - Padded container for entire post */
+.card {
+  padding: 1rem;
+}
+
+/* Header - Top section with author info and more button */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+/* Author section - Avatar and text info grouped together */
+.authorSection {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+/* Avatar - Circular profile with coral background */
+.avatar {
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--color-coral);
+  color: white;
+  font-weight: 600;
+}
+
+/* Author info - Vertical stack of name, headline, and timestamp */
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Author name - Clickable bold text with hover effect */
+.authorName {
+  font-weight: 600;
+  color: var(--color-card-foreground);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.authorName:hover {
+  color: var(--color-accent);
+}
+
+/* Headline - Job title and description */
+.headline {
+  font-size: 0.875rem;
+  color: var(--color-muted-foreground);
+}
+
+/* Time ago - Small muted timestamp (e.g., "2h ago") */
+.timeAgo {
+  font-size: 0.75rem;
+  color: var(--color-muted-foreground);
+  margin-top: 0.125rem;
+}
+
+/* More button - Three dots menu icon button */
+.moreButton {
+  width: 2rem;
+  height: 2rem;
+  padding: 0.5rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  color: var(--color-muted-foreground);
+  transition: background-color var(--transition-fast);
+}
+
+/* Hover state - Light mode subtle background */
+.moreButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode hover - Lighter background for visibility */
+.dark .moreButton:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Content - Main post text area, preserves line breaks */
+.content {
+  margin-bottom: 1rem;
+  color: var(--color-card-foreground);
+  white-space: pre-line;
+}
+
+/* Stats - Engagement metrics with top and bottom borders */
+.stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.875rem;
+  color: var(--color-muted-foreground);
+}
+
+/* Individual stat - Clickable likes and comments counts */
+.stat {
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.stat:hover {
+  color: var(--color-accent);
+}
+
+/* Actions - Row of engagement buttons (Like, Comment, Repost, Send) */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-top: 0.5rem;
+}
+
+/* Action button - Icon + label button with hover effect */
+.actionButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: var(--color-muted-foreground);
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+/* Hover state - Accent background and text color */
+.actionButton:hover {
+  background-color: rgba(242, 204, 143, 0.1);
+  color: var(--color-accent);
+}
+
+/* Icon sizing for lucide-react icons */
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
