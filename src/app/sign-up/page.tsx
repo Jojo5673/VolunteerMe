@@ -5,11 +5,14 @@ import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../lib/firebaseConfig";
 import "../../styles/auth.css";
 import { useRouter } from "next/navigation";
+import { db } from "../../lib/firebaseConfig";
+import {doc,setDoc} from "firebase/firestore"; 
 
 interface FormData {
 	name: string;
 	email: string;
 	password: string;
+	role: string;
 }
 
 export default function SignupPage() {
@@ -18,36 +21,56 @@ export default function SignupPage() {
 		name: "",
 		email: "",
 		password: "",
+		role: "volunteer",
 	});
 
 	const [CreateUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 		const { id, value } = e.target;
 		setFormData((prev) => ({ ...prev, [id]: value }));
 	};
+
+	//verifies organization email is a valid one 
+	const isOrgEmailValid = (email: string) => {
+    	const commonDomains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com"];
+    	const domain = email.split("@")[1]?.toLowerCase();
+   		return domain && !commonDomains.includes(domain);
+    };
 
 	//form handler
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		try {
-			//attempt to sign in
-			const res = await CreateUserWithEmailAndPassword(formData.email, formData.password);
-			console.log(res);
-      sessionStorage.setItem('user', 'true')
-			setFormData({
-				name: "",
-				email: "",
-				password: "",
+			if (formData.role === "organization" && !isOrgEmailValid(formData.email)) {
+				alert("Please use a valid organization email address (not Gmail, Yahoo, etc).");
+				return;
+			}
+
+			const userCredential = await CreateUserWithEmailAndPassword(formData.email, formData.password);
+			const user = userCredential?.user;
+
+			if (!user) throw new Error("User not created");
+
+			// Save user profile to Firestore
+			await setDoc(doc(db, "users", user.uid), {
+				name: formData.name,
+				email: formData.email,
+				role: formData.role,
+				createdAt: new Date(),
 			});
-      router.push("/");
-		} catch (e) {
-      console.log(e)
-    }
+
+			sessionStorage.setItem("user", "true");
+			setFormData({ name: "", email: "", password: "", role: "volunteer" });
+		  } 
+	  	catch (error) {
+			console.error("Error signing up:", error);
+			alert("Error creating account. Please try again.");
+      }
 	};
 
-	//actual form
+	//actual form (for the signup container)
 	return (
 		<div className="signup-container">
 			<div className="signup-card">
@@ -55,6 +78,12 @@ export default function SignupPage() {
 				<p className="signup-subtitle">Create an account to start making an impact</p>
 
 				<form className="signup-form" onSubmit={handleSubmit}>
+					<label htmlFor="role">I am a:</label>
+					<select id="role" value={formData.role} onChange={handleChange} required>
+						<option value="volunteer">Volunteer</option>
+						<option value="organization">Organization</option>
+					</select>
+
 					<label htmlFor="name">Full Name</label>
 					<input type="text" id="name" placeholder="John Doe" value={formData.name} onChange={handleChange} required />
 
