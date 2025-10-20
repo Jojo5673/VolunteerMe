@@ -2,8 +2,8 @@
 
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "@/lib/firebaseConfig";
-import "@/app/auth.css";
+import { auth } from "../../lib/firebaseConfig";
+import "../../styles/auth.css";
 import { useRouter } from "next/navigation";
 
 interface FormData {

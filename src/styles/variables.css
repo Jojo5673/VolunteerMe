@@ -6,6 +6,7 @@
   --gold: #f2cc8f;
 }
 
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: var(--dark);
@@ -19,3 +20,4 @@
     --background: var(--light);
   }
 }
+
