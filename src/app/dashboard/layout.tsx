@@ -3,7 +3,7 @@
  * Main application page with LinkedIn-style layout
  * Features three-column layout: profile sidebar, main feed, and recommendations
  */
-import styles from "../styles/Index.module.css";
+import styles from "../../styles/Index.module.css";
 import { Navigation } from "@/components/Navigation";
 import { ProfileSidebar } from "@/components/ProfileSidebar";
 import { MainFeed } from "@/components/MainFeed";
