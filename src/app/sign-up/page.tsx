@@ -63,6 +63,7 @@ export default function SignupPage() {
 
 			sessionStorage.setItem("user", "true");
 			setFormData({ name: "", email: "", password: "", role: "volunteer" });
+			router.replace("/")
 		  } 
 	  	catch (error) {
 			console.error("Error signing up:", error);
