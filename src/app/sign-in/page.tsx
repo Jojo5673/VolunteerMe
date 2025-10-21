@@ -115,7 +115,7 @@ export default function SignInPage() {
                 </form>
 
                 <p className="signup-footer">
-                    Don"t have an account? <a href="/sign-up">Sign Up</a>
+                    Do not have an account? <a href="/sign-up">Sign Up</a>
                 </p>
             </div>
         </div>
