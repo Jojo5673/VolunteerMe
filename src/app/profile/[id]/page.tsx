@@ -242,7 +242,7 @@ export default function VolunteerProfilePage() {
         <Navigation />
         <div className={styles.errorContainer}>
           <h2>Volunteer Not Found</h2>
-          <p>The volunteer profile you"re looking for doesn"t exist.</p>
+          <p>The volunteer profile you are looking for does not exist.</p>
         </div>
       </>
     );
