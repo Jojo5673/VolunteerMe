@@ -20,8 +20,9 @@ export function CreatePost() {
           <span className={styles.placeholder}>Start a post</span>
         </button>
       </div>
+      
 
-      {/* Post type buttons */}
+      {/* Post type buttons
       <div className={styles.postTypeButtons}>
         <button className={`${styles.postTypeButton} ${styles.photo}`}>
           <Image className={styles.icon} />
@@ -37,7 +38,7 @@ export function CreatePost() {
           <FileText className={styles.icon} />
           <span>Article</span>
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
