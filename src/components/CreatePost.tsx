@@ -20,7 +20,6 @@ export function CreatePost() {
           <span className={styles.placeholder}>Start a post</span>
         </button>
       </div>
-      
 
       {/* Post type buttons
       <div className={styles.postTypeButtons}>

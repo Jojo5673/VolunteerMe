@@ -1,6 +1,10 @@
-import { CreatePost } from "./CreatePost";
+"use client";
 import { FeedPost } from "./FeedPost";
 import styles from "../styles/MainFeed.module.css";
+import { useEffect, useState } from "react";
+import { Post } from "@/types/Post";
+
+
 
 /**
  * MainFeed Component
@@ -9,23 +13,38 @@ import styles from "../styles/MainFeed.module.css";
  */
 export function MainFeed() {
   // Sample feed data
-  const posts = [
-    {
-      id: 1,
-      author: "Sarah Johnson",
-      initials: "SJ",
-      headline: "Senior Product Manager at Tech Corp",
-      timeAgo: "2h ago",
-      content: "Excited to share that our team just launched a new feature that will help thousands of users! 🚀\n\nBig thanks to the amazing engineering team for making this possible.",
-      likes: 42,
-      comments: 8,
-    },
-  ];
+
+  const [query,setQuery] = useState('');
+
+  const [posts, setPosts] = useState([] as Post[]);
+
+  useEffect(()=>{
+    async function fetchData() {
+      const response = await fetch(`/api/pinecone?query="${query}"`); // Relative path to your API route
+      const result = (await response.json()).map((item: { _id: any; fields: any; })=>{
+        return {
+          id:item._id,
+          ...item.fields
+        }
+      });
+      setPosts(result);
+    }
+    fetchData();
+  },[query]) 
 
   return (
     <div className={styles.container}>
       {/* Create post card */}
-      <CreatePost />
+      <div className={`card ${styles.card}`}>
+        {/* Post input area */}
+        <div className={styles.inputArea}>
+          <div className={`avatar ${styles.avatar}`}>
+            JD
+          </div>
+          //search bar input
+          <input type="email" id="email" placeholder="you@example.com" value={query} onChange={(e)=>setQuery(e.target.value)} required />
+        </div>
+      </div>
 
       {/* Feed posts */}
       {posts.map((post) => (

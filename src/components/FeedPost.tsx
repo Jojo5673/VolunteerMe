@@ -7,23 +7,13 @@ import styles from "../styles/FeedPost.module.css";
  * Shows author info, content, and engagement actions
  */
 interface FeedPostProps {
-  author: string;
-  initials: string;
-  headline: string;
-  timeAgo: string;
-  content: string;
-  likes: number;
-  comments: number;
+  title: string;
+  post_content: string;
 }
 
 export function FeedPost({
-  author,
-  initials,
-  headline,
-  timeAgo,
-  content,
-  likes,
-  comments,
+  title,
+  post_content
 }: FeedPostProps) {
   return (
     <div className={`card ${styles.card}`}>
@@ -31,15 +21,15 @@ export function FeedPost({
       <div className={styles.header}>
         <div className={styles.authorSection}>
           <div className={`avatar ${styles.avatar}`}>
-            {initials}
+            {} //initials
           </div>
           
           <div className={styles.authorInfo}>
             <h4 className={styles.authorName}>
-              {author}
+              {title}
             </h4>
-            <p className={styles.headline}>{headline}</p>
-            <p className={styles.timeAgo}>{timeAgo}</p>
+            {/* <p className={styles.headline}>{headline}</p>
+            <p className={styles.timeAgo}>{timeAgo}</p> */}
           </div>
         </div>
 
@@ -51,10 +41,10 @@ export function FeedPost({
 
       {/* Post content */}
       <div className={styles.content}>
-        <p>{content}</p>
+        <p>{post_content}</p>
       </div>
 
-      {/* Engagement stats */}
+      {/* Engagement stats
       <div className={styles.stats}>
         <span className={styles.stat}>
           {likes} likes
@@ -64,7 +54,7 @@ export function FeedPost({
         </span>
       </div>
 
-      {/* Action buttons */}
+      {/* Action buttons 
       <div className={styles.actions}>
         <button className={styles.actionButton}>
           <ThumbsUp className={styles.icon} />
@@ -85,7 +75,8 @@ export function FeedPost({
           <Send className={styles.icon} />
           <span>Send</span>
         </button>
-      </div>
+      </div> */}
+
     </div>
   );
 }
