@@ -1,5 +1,5 @@
 // Ignore missing type declarations for next-themes in environments without @types/next-themes
-// @ts-expect-error
+// @ts-expect-error: erm gpt said so
 import { useTheme } from "next-themes";
 import { Toaster as Sonner, toast } from "sonner";
 

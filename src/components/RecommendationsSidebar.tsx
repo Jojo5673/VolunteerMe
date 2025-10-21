@@ -7,37 +7,16 @@ import styles from "../styles/RecommendationsSidebar.module.css";
  */
 export function RecommendationsSidebar() {
   // Sample news items
-  const newsItems = [
-    { title: "Tech layoffs continue", time: "2h ago", readers: "1,234" },
-    { title: "AI trends in 2024", time: "5h ago", readers: "5,678" },
-    { title: "Remote work debate", time: "1d ago", readers: "892" },
-  ];
 
   // Sample connection suggestions
   const suggestions = [
-    { name: "Sarah Johnson", title: "Product Manager", mutual: 12 },
-    { name: "Mike Chen", title: "UX Designer", mutual: 8 },
-    { name: "Emily Davis", title: "Data Scientist", mutual: 5 },
+    { name: "Grace Kennedy", title: "Foundation", mutual: 1200},
+    { name: "The UWI", title: "University", mutual: 800 },
+    { name: "Sagicor", title: "Bank", mutual: 500 },
   ];
 
   return (
     <div className={styles.container}>
-      {/* News feed card */}
-      <div className={`card ${styles.card}`}>
-        <h4 className={styles.title}>LinkedIn News</h4>
-        <div className={styles.newsList}>
-          {newsItems.map((item, index) => (
-            <button key={index} className={styles.newsItem}>
-              <h5 className={styles.newsTitle}>
-                {item.title}
-              </h5>
-              <p className={styles.newsInfo}>
-                {item.time} • {item.readers} readers
-              </p>
-            </button>
-          ))}
-        </div>
-      </div>
 
       {/* Connection suggestions card */}
       <div className={`card ${styles.card}`}>
@@ -59,7 +38,7 @@ export function RecommendationsSidebar() {
                   {person.title}
                 </p>
                 <p className={styles.mutualConnections}>
-                  {person.mutual} mutual connections
+                  {person.mutual} followers
                 </p>
               </div>
               
