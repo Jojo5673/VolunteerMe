@@ -28,9 +28,42 @@ export const createDatabase = async () => {
 
     // Add some fake data
     const fake_data: Post[] = [
-        { id: '1', title: 'First Post', post_content: 'This is the content of the first post.' },
-        { id: '2', title: 'Second Post', post_content: 'This is the content of the second post.' },
-        { id: '3', title: 'Third Post', post_content: 'Volunteer at animal shelter and make a difference!' },
+        { 
+            id: '1', 
+            title: 'Animal Shelter Helper Needed', 
+            post_content: 'Help us take care of our furry friends! We need volunteers to assist with feeding, walking, and general care of our shelter animals.',
+            eventDate: '2025-11-15',
+            eventTime: '09:00',
+            location: '123 Shelter Street, Anytown, USA',
+            volunteersNeeded: 5,
+            requiredSkills: ['Animal handling', 'Patience', 'Basic pet care'],
+            volunteers: [],
+            comments: []
+        },
+        { 
+            id: '2', 
+            title: 'Beach Cleanup Event', 
+            post_content: 'Join us for our monthly beach cleanup! Help keep our beaches clean and safe for wildlife.',
+            eventDate: '2025-11-20',
+            eventTime: '08:00',
+            location: 'Sunny Beach Entrance, Beach City, USA',
+            volunteersNeeded: 10,
+            requiredSkills: ['Physical stamina', 'Environmental awareness'],
+            volunteers: [],
+            comments: []
+        },
+        { 
+            id: '3', 
+            title: 'Food Bank Distribution', 
+            post_content: 'Support our local community by helping distribute food to families in need.',
+            eventDate: '2025-11-25',
+            eventTime: '10:00',
+            location: '456 Community Center Rd, Helptown, USA',
+            volunteersNeeded: 8,
+            requiredSkills: ['Organization', 'Communication', 'Physical lifting'],
+            volunteers: [],
+            comments: []
+        },
     ];
     await addRecords(fake_data);
 }
@@ -39,8 +72,25 @@ export const addRecords = async (records: Post[]) => {
     // Target the index
     const index = pc.index(indexName).namespace("example-namespace");
 
+    // Convert Post objects to Pinecone-compatible format
+    const pineconeRecords = records.map(record => ({
+        id: record.id,
+        values: [],  // Vector values would go here - using empty array for now
+        metadata: {
+            title: record.title,
+            post_content: record.post_content,
+            eventDate: record.eventDate,
+            eventTime: record.eventTime,
+            location: record.location,
+            volunteersNeeded: record.volunteersNeeded.toString(),
+            requiredSkills: JSON.stringify(record.requiredSkills),
+            volunteers: JSON.stringify(record.volunteers),
+            comments: JSON.stringify(record.comments)
+        }
+    }));
+
     // Upsert the records into a namespace
-    await index.upsertRecords(records);
+    await index.upsertRecords(pineconeRecords);
 }
 
 export const queryDatabase = async (queryText: string, topK: number) => {
