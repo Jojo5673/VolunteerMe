@@ -1,6 +1,7 @@
 "use client";
 import { FeedPost } from "./FeedPost";
 import styles from "../styles/MainFeed.module.css";
+import styles2 from "../styles/CreatePost.module.css";
 import { useEffect, useState } from "react";
 import { Post } from "@/types/Post";
 
@@ -37,12 +38,9 @@ export function MainFeed() {
       {/* Create post card */}
       <div className={`card ${styles.card}`}>
         {/* Post input area */}
-        <div className={styles.inputArea}>
-          <div className={`avatar ${styles.avatar}`}>
-            JD
-          </div>
+        <div className={styles2.inputArea}>
           {/* search bar input */}
-          <input type="email" id="email" placeholder="you@example.com" value={query} onChange={(e)=>setQuery(e.target.value)} required />
+          <input className={styles2.fakeInput} type="email" id="email" placeholder="Find an event" value={query} onChange={(e)=>setQuery(e.target.value)} required />
         </div>
       </div>
 

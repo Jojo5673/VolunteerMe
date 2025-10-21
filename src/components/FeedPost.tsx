@@ -1,5 +1,6 @@
 import { ThumbsUp, MessageCircle, Repeat2, Send, MoreHorizontal } from "lucide-react";
 import styles from "../styles/FeedPost.module.css";
+import Link from "next/link";
 
 /**
  * FeedPost Component
@@ -7,16 +8,18 @@ import styles from "../styles/FeedPost.module.css";
  * Shows author info, content, and engagement actions
  */
 interface FeedPostProps {
+  id: string;
   title: string;
   post_content: string;
 }
 
 export function FeedPost({
+  id,
   title,
   post_content
 }: FeedPostProps) {
   return (
-    <div className={`card ${styles.card}`}>
+    <Link href={`/event/${id}`} className={`card ${styles.card} cursor-pointer transition-transform hover:scale-[1.02]`}>
       {/* Post header - Author info */}
       <div className={styles.header}>
         <div className={styles.authorSection}>
@@ -77,6 +80,6 @@ export function FeedPost({
         </button>
       </div> */}
 
-    </div>
+    </Link>
   );
 }
