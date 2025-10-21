@@ -21,7 +21,7 @@ export function FeedPost({
       <div className={styles.header}>
         <div className={styles.authorSection}>
           <div className={`avatar ${styles.avatar}`}>
-            {} //initials
+            {} {/*  initials */}
           </div>
           
           <div className={styles.authorInfo}>
