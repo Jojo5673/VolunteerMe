@@ -31,7 +31,7 @@ export default function SignInPage() {
         try {
             const res = await SignInWithEmailAndPassword(formData.email, formData.password);
             console.log(res);
-            sessionStorage.setItem('user', 'true')
+            sessionStorage.setItem("user", "true")
             setFormData({
                 email: "",
                 password: "",
