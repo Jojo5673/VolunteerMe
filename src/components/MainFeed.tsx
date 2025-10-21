@@ -41,7 +41,7 @@ export function MainFeed() {
           <div className={`avatar ${styles.avatar}`}>
             JD
           </div>
-          //search bar input
+          {/* search bar input */}
           <input type="email" id="email" placeholder="you@example.com" value={query} onChange={(e)=>setQuery(e.target.value)} required />
         </div>
       </div>

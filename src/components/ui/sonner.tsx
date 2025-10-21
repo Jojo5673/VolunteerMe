@@ -1,5 +1,5 @@
 // Ignore missing type declarations for next-themes in environments without @types/next-themes
-// @ts-ignore
+// @ts-expect-error
 import { useTheme } from "next-themes";
 import { Toaster as Sonner, toast } from "sonner";
 
