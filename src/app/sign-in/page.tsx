@@ -3,7 +3,7 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../lib/firebaseConfig";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import "../../styles/auth.css";
 
 interface FormData {
@@ -44,7 +44,7 @@ export default function SignInPage() {
             // Check if sign-in was successful
             if (res && res.user) {
                 console.log("✅ Successfully signed in:", res.user.email);
-                sessionStorage.setItem('user', 'true');
+                sessionStorage.setItem("user", "true");
                 
                 // Clear form
                 setFormData({
@@ -75,12 +75,12 @@ export default function SignInPage() {
                 {/* Show error message if exists */}
                 {(loginError || error) && (
                     <div style={{
-                        padding: '12px',
-                        background: '#fee',
-                        border: '1px solid #fcc',
-                        borderRadius: '8px',
-                        marginBottom: '16px',
-                        color: '#c33'
+                        padding: "12px",
+                        background: "#fee",
+                        border: "1px solid #fcc",
+                        borderRadius: "8px",
+                        marginBottom: "16px",
+                        color: "#c33"
                     }}>
                         <strong>Error:</strong> {loginError || error?.message}
                     </div>
@@ -115,7 +115,7 @@ export default function SignInPage() {
                 </form>
 
                 <p className="signup-footer">
-                    Don't have an account? <a href="/sign-up">Sign Up</a>
+                    Don"t have an account? <a href="/sign-up">Sign Up</a>
                 </p>
             </div>
         </div>

@@ -45,7 +45,7 @@ export default function VolunteerProfilePage() {
   
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Check if this is the current user's profile
+  // Check if this is the current user"s profile
   const isOwnProfile = user?.uid === volunteerId;
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function VolunteerProfilePage() {
             return total + (event.hoursContributed || 0);
           }, 0) || 0;
           
-          // Update Firestore if calculated hours don't match stored hours
+          // Update Firestore if calculated hours don"t match stored hours
           if (calculatedHours !== data.totalHours) {
             console.log(`Updating total hours from ${data.totalHours} to ${calculatedHours}`);
             await updateDoc(doc(db, "volunteers", volunteerId), {
@@ -106,16 +106,16 @@ export default function VolunteerProfilePage() {
     }
 
     // Validate file type
-    if (!file.type.startsWith('image/')) {
+    if (!file.type.startsWith("image/")) {
       console.log("Invalid file type:", file.type);
-      alert('Please select an image file');
+      alert("Please select an image file");
       return;
     }
 
     // Validate file size (max 2MB for base64)
     if (file.size > 2 * 1024 * 1024) {
       console.log("File too large:", file.size);
-      alert('Image must be less than 2MB');
+      alert("Image must be less than 2MB");
       return;
     }
 
@@ -242,7 +242,7 @@ export default function VolunteerProfilePage() {
         <Navigation />
         <div className={styles.errorContainer}>
           <h2>Volunteer Not Found</h2>
-          <p>The volunteer profile you're looking for doesn't exist.</p>
+          <p>The volunteer profile you"re looking for doesn"t exist.</p>
         </div>
       </>
     );
@@ -285,7 +285,7 @@ export default function VolunteerProfilePage() {
                 type="file"
                 accept="image/*"
                 onChange={handlePhotoUpload}
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
               />
               
               <div className={styles.avatarContainer}>
@@ -324,9 +324,9 @@ export default function VolunteerProfilePage() {
               <p className={styles.profileEmail}>{email}</p>
               {joinDate && (
                 <p className={styles.joinDate}>
-                  Volunteer since {new Date(joinDate.toDate ? joinDate.toDate() : joinDate).toLocaleDateString('en-US', { 
-                    month: 'long', 
-                    year: 'numeric' 
+                  Volunteer since {new Date(joinDate.toDate ? joinDate.toDate() : joinDate).toLocaleDateString("en-US", { 
+                    month: "long", 
+                    year: "numeric" 
                   })}
                 </p>
               )}
@@ -436,7 +436,7 @@ export default function VolunteerProfilePage() {
                       placeholder="Add new interest..."
                       value={newInterest}
                       onChange={(e) => setNewInterest(e.target.value)}
-                      onKeyPress={(e) => e.key === 'Enter' && handleAddInterest()}
+                      onKeyPress={(e) => e.key === "Enter" && handleAddInterest()}
                       className={styles.interestInput}
                     />
                     <button 
@@ -487,10 +487,10 @@ export default function VolunteerProfilePage() {
                       <div className={styles.eventDetails}>
                         <h4 className={styles.eventName}>{event.name}</h4>
                         <p className={styles.eventDate}>
-                          {new Date(event.date).toLocaleDateString('en-US', {
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric'
+                          {new Date(event.date).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric"
                           })}
                         </p>
                         {event.hoursContributed && (
