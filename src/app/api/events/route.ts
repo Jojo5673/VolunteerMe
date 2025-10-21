@@ -27,7 +27,6 @@ async function getEventFromPinecone(eventId: string): Promise<Post | null> {
 
 async function updateEventInPinecone(event: Post) {
     const index = pc.index(indexName).namespace("example-namespace");
-    console.log(event);
     await index.upsertRecord(event);
 }
 
