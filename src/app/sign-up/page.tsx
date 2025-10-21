@@ -2,11 +2,10 @@
 
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "../../lib/firebaseConfig";
+import { auth, db } from "../../lib/firebaseConfig";
 import "../../styles/auth.css";
 import { useRouter } from "next/navigation";
-import { db } from "../../lib/firebaseConfig";
-import {doc,setDoc} from "firebase/firestore"; 
+import { doc, setDoc } from "firebase/firestore";
 
 interface FormData {
 	name: string;
@@ -16,7 +15,7 @@ interface FormData {
 }
 
 export default function SignupPage() {
-  const router = useRouter();
+	const router = useRouter();
 	const [formData, setFormData] = useState<FormData>({
 		name: "",
 		email: "",
@@ -24,78 +23,179 @@ export default function SignupPage() {
 		role: "volunteer",
 	});
 
-	const [CreateUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+	// FIXED: Properly destructure all return values including error and loading
+	const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
+	const [signupError, setSignupError] = useState<string>("");
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 		const { id, value } = e.target;
 		setFormData((prev) => ({ ...prev, [id]: value }));
+		setSignupError(""); // Clear errors when user types
 	};
 
-	//verifies organization email is a valid one 
+	// Verifies organization email is a valid one
 	const isOrgEmailValid = (email: string) => {
-    	const commonDomains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com"];
-    	const domain = email.split("@")[1]?.toLowerCase();
-   		return domain && !commonDomains.includes(domain);
-    };
+		const commonDomains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com"];
+		const domain = email.split("@")[1]?.toLowerCase();
+		return domain && !commonDomains.includes(domain);
+	};
 
-	//form handler
+	// Form handler
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setSignupError("");
 
 		try {
+			// Validate organization email
 			if (formData.role === "organization" && !isOrgEmailValid(formData.email)) {
-				alert("Please use a valid organization email address (not Gmail, Yahoo, etc).");
+				setSignupError("Please use a valid organization email address (not Gmail, Yahoo, etc).");
 				return;
 			}
 
-			const userCredential = await CreateUserWithEmailAndPassword(formData.email, formData.password);
-			const user = userCredential?.user;
+			console.log("Creating user with email:", formData.email);
 
-			if (!user) throw new Error("User not created");
+			// Create Firebase Auth account
+			const userCredential = await createUserWithEmailAndPassword(formData.email, formData.password);
+			
+			console.log("User credential:", userCredential);
 
-			// Save user profile to Firestore
-			await setDoc(doc(db, "users", user.uid), {
+			if (!userCredential || !userCredential.user) {
+				throw new Error("Failed to create user account");
+			}
+
+			const newUser = userCredential.user;
+			console.log("✅ User created successfully:", newUser.uid);
+
+			// Update Firebase Auth display name
+			const { updateProfile } = await import("firebase/auth");
+			await updateProfile(newUser, {
+				displayName: formData.name
+			});
+			console.log("✅ Display name updated");
+
+			// Save user profile to Firestore in "users" collection
+			await setDoc(doc(db, "users", newUser.uid), {
 				name: formData.name,
 				email: formData.email,
 				role: formData.role,
 				createdAt: new Date(),
 			});
 
+			console.log("✅ User profile saved to Firestore");
+
+			// If volunteer, also create volunteer profile
+			if (formData.role === "volunteer") {
+				await setDoc(doc(db, "volunteers", newUser.uid), {
+					displayName: formData.name,
+					email: formData.email,
+					totalHours: 0,
+					eventsAttended: [],
+					interests: [],
+					bio: "",
+					joinDate: new Date(),
+				});
+				console.log("✅ Volunteer profile created");
+			}
+
 			sessionStorage.setItem("user", "true");
+			
+			// Clear form
 			setFormData({ name: "", email: "", password: "", role: "volunteer" });
-			router.replace("/")
-		  } 
-	  	catch (error) {
-			console.error("Error signing up:", error);
-			alert("Error creating account. Please try again.");
-      }
+			
+			console.log("✅ Redirecting to home...");
+			router.push("/");
+		} catch (err: any) {
+			console.error("❌ Error signing up:", err);
+			console.error("Error code:", err.code);
+			console.error("Error message:", err.message);
+			
+			// User-friendly error messages
+			let errorMessage = "Error creating account. Please try again.";
+			
+			if (err.code === "auth/email-already-in-use") {
+				errorMessage = "This email is already registered. Please sign in instead.";
+			} else if (err.code === "auth/weak-password") {
+				errorMessage = "Password should be at least 6 characters.";
+			} else if (err.code === "auth/invalid-email") {
+				errorMessage = "Please enter a valid email address.";
+			} else if (err.message) {
+				errorMessage = err.message;
+			}
+			
+			setSignupError(errorMessage);
+		}
 	};
 
-	//actual form (for the signup container)
+	// Actual form
 	return (
 		<div className="signup-container">
 			<div className="signup-card">
 				<h1 className="signup-title">Join VolunteerMe</h1>
 				<p className="signup-subtitle">Create an account to start making an impact</p>
 
+				{/* Show error message if exists */}
+				{(signupError || error) && (
+					<div style={{
+						padding: '12px',
+						background: '#fee',
+						border: '1px solid #fcc',
+						borderRadius: '8px',
+						marginBottom: '16px',
+						color: '#c33'
+					}}>
+						<strong>Error:</strong> {signupError || error?.message}
+					</div>
+				)}
+
 				<form className="signup-form" onSubmit={handleSubmit}>
 					<label htmlFor="role">I am a:</label>
-					<select id="role" value={formData.role} onChange={handleChange} required>
+					<select 
+						id="role" 
+						value={formData.role} 
+						onChange={handleChange} 
+						required
+						disabled={loading}
+					>
 						<option value="volunteer">Volunteer</option>
 						<option value="organization">Organization</option>
 					</select>
 
 					<label htmlFor="name">Full Name</label>
-					<input type="text" id="name" placeholder="John Doe" value={formData.name} onChange={handleChange} required />
+					<input 
+						type="text" 
+						id="name" 
+						placeholder="John Doe" 
+						value={formData.name} 
+						onChange={handleChange} 
+						required 
+						disabled={loading}
+					/>
 
 					<label htmlFor="email">Email</label>
-					<input type="email" id="email" placeholder="you@example.com" value={formData.email} onChange={handleChange} required />
+					<input 
+						type="email" 
+						id="email" 
+						placeholder="you@example.com" 
+						value={formData.email} 
+						onChange={handleChange} 
+						required 
+						disabled={loading}
+					/>
 
 					<label htmlFor="password">Password</label>
-					<input type="password" id="password" placeholder="••••••••" value={formData.password} onChange={handleChange} required />
+					<input 
+						type="password" 
+						id="password" 
+						placeholder="••••••••" 
+						value={formData.password} 
+						onChange={handleChange} 
+						required 
+						disabled={loading}
+						minLength={6}
+					/>
 
-					<button type="submit" className="signup-btn">
-						Sign Up
+					<button type="submit" className="signup-btn" disabled={loading}>
+						{loading ? "Creating account..." : "Sign Up"}
 					</button>
 				</form>
 

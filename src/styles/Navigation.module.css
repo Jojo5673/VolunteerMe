@@ -99,3 +99,17 @@
   display: flex;
   align-items: center;
 }
+
+.navContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Change from flex-start if needed */
+  gap: 20px;
+}
+
+.centerSection {
+  flex: 1; /* Take up available space */
+  display: flex;
+  justify-content: center; /* Center the nav items */
+  gap: 8px;
+}
