@@ -20,26 +20,6 @@ export function MainFeed() {
       likes: 42,
       comments: 8,
     },
-    {
-      id: 2,
-      author: "Mike Chen",
-      initials: "MC",
-      headline: "UX Designer | Design Systems Advocate",
-      timeAgo: "5h ago",
-      content: "Just finished an incredible design thinking workshop. The key takeaway: Always start with empathy. Understanding your users deeply is the foundation of great design.\n\nWhat's your favorite design principle?",
-      likes: 127,
-      comments: 23,
-    },
-    {
-      id: 3,
-      author: "Emily Davis",
-      initials: "ED",
-      headline: "Data Scientist @ AI Innovations",
-      timeAgo: "1d ago",
-      content: "Machine learning models are only as good as the data you feed them. Here are 3 tips for better data quality:\n\n1. Clean your data thoroughly\n2. Remove biases where possible\n3. Validate your assumptions\n\nWhat other tips would you add?",
-      likes: 89,
-      comments: 15,
-    },
   ];
 
   return (
