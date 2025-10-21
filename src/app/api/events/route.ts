@@ -3,7 +3,7 @@ import { Comment, Post, Volunteer } from '@/types/Post';
 import { Pinecone } from '@pinecone-database/pinecone';
 
 const pc = new Pinecone({ apiKey: 'pcsk_4mjoTB_C4ZB4exCpBS5R1MiN9N57xhGn8p5E2QqWSdyVVHwBcMfyCDGWQpHUH9yZz22tG' });
-const indexName = 'volunteer-me';
+const indexName = 'volunteer-me-pbm-2';
 
 async function getEventFromPinecone(eventId: string): Promise<Post | null> {
     const index = pc.index(indexName).namespace("example-namespace");
@@ -27,6 +27,7 @@ async function getEventFromPinecone(eventId: string): Promise<Post | null> {
 
 async function updateEventInPinecone(event: Post) {
     const index = pc.index(indexName).namespace("example-namespace");
+    console.log(event);
     await index.upsertRecord(event);
 }
 
@@ -58,6 +59,7 @@ export async function POST(req: NextRequest) {
         // Get current event data
         let event = await getEventFromPinecone(eventId);
         if (!event) {
+            console.log("not found")
             return NextResponse.json({ error: 'Event not found' }, { status: 404 });
         }
 
@@ -83,7 +85,7 @@ export async function POST(req: NextRequest) {
                     content: data.content,
                     timestamp: new Date().toISOString()
                 };
-                event.comments.push(comment);
+                event.comments = [...event.comments, comment];
                 break;
 
             default:
