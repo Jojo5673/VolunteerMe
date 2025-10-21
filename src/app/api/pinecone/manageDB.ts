@@ -1,14 +1,20 @@
 // Import the Pinecone library
 import { Pinecone } from '@pinecone-database/pinecone'
-import { Post } from '../types/Post';
+import { Post } from '../../../types/Post';
+import { create } from 'domain';
 
 // Initialize a Pinecone client with your API key
-const pc = new Pinecone({ apiKey: process.env.PINECONE_PRIVATE_API_KEY! });
+const pc = new Pinecone({ apiKey: 'pcsk_4mjoTB_C4ZB4exCpBS5R1MiN9N57xhGn8p5E2QqWSdyVVHwBcMfyCDGWQpHUH9yZz22tG' });
 
 // Create a dense index with integrated embedding
-const indexName = 'volunteerMe';
+const indexName = 'volunteer-me';
 
 export const createDatabase = async () => {
+    const indexes = await pc.listIndexes();
+    if (indexes?.indexes?.some((index: { name: string; }) => index.name === indexName)) {
+        console.log(`Index ${indexName} already exists.`);
+        return;
+    }
     await pc.createIndexForModel({
     name: indexName,
     cloud: 'aws',
@@ -51,3 +57,5 @@ export const queryDatabase = async (queryText: string, topK: number) => {
     // Print the results
     return results.result.hits;
 }
+
+await createDatabase();

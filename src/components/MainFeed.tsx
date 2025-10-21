@@ -1,11 +1,9 @@
 "use client";
-
-import { CreatePost } from "./CreatePost";
 import { FeedPost } from "./FeedPost";
 import styles from "../styles/MainFeed.module.css";
 import { useEffect, useState } from "react";
-import { queryDatabase } from "@/lib/manageDB";
 import { Post } from "@/types/Post";
+
 
 
 /**
@@ -18,20 +16,21 @@ export function MainFeed() {
 
   const [query,setQuery] = useState('');
 
-  const [posts, setPosts] = useState([
-    {
-      id: '1', 
-      title: 'First Post', 
-      post_content: 'This is the content of the first post.'
-    },
-  ]);
+  const [posts, setPosts] = useState([] as Post[]);
 
   useEffect(()=>{
-    queryDatabase(query,2).then((results)=>{
-      setPosts(results as unknown as Post[])
-    })
-
-  }) 
+    async function fetchData() {
+      const response = await fetch(`/api/pinecone?query="${query}"`); // Relative path to your API route
+      const result = (await response.json()).map((item: { _id: any; fields: any; })=>{
+        return {
+          id:item._id,
+          ...item.fields
+        }
+      });
+      setPosts(result);
+    }
+    fetchData();
+  },[query]) 
 
   return (
     <div className={styles.container}>
@@ -42,12 +41,8 @@ export function MainFeed() {
           <div className={`avatar ${styles.avatar}`}>
             JD
           </div>
-          
-          {/* Fake input that would open a modal in real implementation */}
-
+          //search bar input
           <input type="email" id="email" placeholder="you@example.com" value={query} onChange={(e)=>setQuery(e.target.value)} required />
-          
-          
         </div>
       </div>
 
