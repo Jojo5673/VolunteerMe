@@ -56,7 +56,7 @@ export default function VolunteerProfilePage() {
         const volunteerDoc = await getDoc(doc(db, "volunteers", volunteerId));
         
         if (volunteerDoc.exists()) {
-          const data = { id: volunteerDoc.id, ...volunteerDoc.data() };
+          const data: any = { id: volunteerDoc.id, ...volunteerDoc.data() };
           
           // Calculate total hours from events
           const calculatedHours = data.eventsAttended?.reduce((total: number, event: any) => {
