@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { notFound } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { Post } from '@/types/Post';
-import feedStyles from '@/styles/FeedPost.module.css';
-import styles from '@/styles/EventPage.module.css';
+import { notFound } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Post } from "@/types/Post";
+import feedStyles from "@/styles/FeedPost.module.css";
+import styles from "@/styles/EventPage.module.css";
 import { MoreHorizontal } from "lucide-react";
-import Link from 'next/link';
+import Link from "next/link";
 
 interface EventPageProps {
   params: Promise<{
@@ -15,7 +15,7 @@ interface EventPageProps {
 }
 
 export default function EventPage({ params }: EventPageProps) {
-  const [id, setId] = useState<string>('');
+  const [id, setId] = useState<string>("");
   const [event, setEvent] = useState<Post | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,14 +30,14 @@ export default function EventPage({ params }: EventPageProps) {
   //gets the id from the route (next.js 13 needs this async)
 
   useEffect(() => {
-    if (!id) return; // Don't fetch if we don't have an id yet
+    if (!id) return; // Don"t fetch if we don"t have an id yet
 
     async function fetchEventData() {
       try {
         // Using the same search API but with the event ID to find the specific event
         const response = await fetch(`/api/pinecone?query="${id}"`);
         if (!response.ok) {
-          throw new Error('Failed to fetch event data');
+          throw new Error("Failed to fetch event data");
         }
         
         const results = await response.json();
@@ -46,7 +46,7 @@ export default function EventPage({ params }: EventPageProps) {
         );
 
         if (!eventData) {
-          throw new Error('Event not found');
+          throw new Error("Event not found");
         }
 
         // Parse the stringified arrays and objects
@@ -60,12 +60,12 @@ export default function EventPage({ params }: EventPageProps) {
           eventTime: fields.eventTime,
           location: fields.location,
           volunteersNeeded: parseInt(fields.volunteersNeeded) || 0,
-          requiredSkills: JSON.parse(fields.requiredSkills || '[]'),
-          volunteers: JSON.parse(fields.volunteers || '[]'),
-          comments: JSON.parse(fields.comments || '[]')
+          requiredSkills: JSON.parse(fields.requiredSkills || "[]"),
+          volunteers: JSON.parse(fields.volunteers || "[]"),
+          comments: JSON.parse(fields.comments || "[]")
         });
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
+        setError(err instanceof Error ? err.message : "An error occurred");
       } finally {
         setIsLoading(false);
       }
@@ -93,7 +93,7 @@ export default function EventPage({ params }: EventPageProps) {
       <main className={styles.container}>
         <div className={styles.errorContainer}>
           <h2 className={styles.errorTitle}>Error</h2>
-          <p className={styles.errorMessage}>{error || 'Event not found'}</p>
+          <p className={styles.errorMessage}>{error || "Event not found"}</p>
           <Link href="/" className={styles.homeLink}>
             Return to Home
           </Link>
@@ -182,30 +182,30 @@ export default function EventPage({ params }: EventPageProps) {
                 const userId = "user123";
                 const userName = "John Doe";
 
-                const response = await fetch('/api/events', {
-                  method: 'POST',
+                const response = await fetch("/api/events", {
+                  method: "POST",
                   headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                   },
                   body: JSON.stringify({
                     eventId: id,
-                    action: 'volunteer',
+                    action: "volunteer",
                     data: { userId, userName }
                   })
                 });
 
-                if (!response.ok) throw new Error('Failed to sign up');
+                if (!response.ok) throw new Error("Failed to sign up");
                 
                 const updatedEvent = await response.json();
                 setEvent(updatedEvent);
               } catch (err) {
-                setError('Failed to sign up for the event');
+                setError("Failed to sign up for the event");
               }
             }}
           >
             {event.volunteers.length >= event.volunteersNeeded 
-              ? 'Event Full' 
-              : 'Sign Up to Volunteer'}
+              ? "Event Full" 
+              : "Sign Up to Volunteer"}
           </button>
         </div>
 
@@ -232,24 +232,24 @@ export default function EventPage({ params }: EventPageProps) {
                   const userName = "John Doe";
                   const content = "Sample comment"; // Get this from state in real app
 
-                  const response = await fetch('/api/events', {
-                    method: 'POST',
+                  const response = await fetch("/api/events", {
+                    method: "POST",
                     headers: {
-                      'Content-Type': 'application/json',
+                      "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
                       eventId: id,
-                      action: 'comment',
+                      action: "comment",
                       data: { userId, userName, content }
                     })
                   });
 
-                  if (!response.ok) throw new Error('Failed to add comment');
+                  if (!response.ok) throw new Error("Failed to add comment");
                   
                   const updatedEvent = await response.json();
                   setEvent(updatedEvent);
                 } catch (err) {
-                  setError('Failed to add comment');
+                  setError("Failed to add comment");
                 }
               }}
             >
