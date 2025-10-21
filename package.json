@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.15",
+    "cmdk": "^1.1.1",
     "firebase": "^12.3.0",
     "firebase-tools": "^14.20.0",
     "lucide-react": "^0.546.0",
